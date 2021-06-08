@@ -44,7 +44,16 @@ int main(int argc, char** argv)
 
   io_relay.init(default_io_port);
 
-  ros::spin();
+  ros::Rate loop_rate(10);
 
+  while (ros::ok()){
+    ROS_INFO("START");
+    bool boolean = io_relay.readIoCB();
+    ROS_INFO("FINISH");
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
+  
+ // ros::spin();
   return 0;
 }

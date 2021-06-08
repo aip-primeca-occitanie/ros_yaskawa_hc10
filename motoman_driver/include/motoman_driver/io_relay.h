@@ -38,6 +38,13 @@
 #include "motoman_msgs/WriteSingleIO.h"
 #include <boost/thread.hpp>
 
+#include "motoman_msgs/Effort.h"
+#include "motoman_driver/motoman_memory.h"
+#include <bitset>
+
+using motoman::yrc1000_memory::Mregister;
+using industrial::shared_types::shared_int;
+
 namespace motoman
 {
 namespace io_relay
@@ -59,11 +66,21 @@ public:
    */
   bool init(int default_port);
 
+  /**
+   * \brief Read registers
+   *
+   * \param default_port
+   * \return true on success, false otherwise
+   */
+  bool readIoCB();
+
 protected:
   io_ctrl::MotomanIoCtrl io_ctrl_;
+  motoman_msgs::Effort effort_value;
 
   ros::ServiceServer srv_read_single_io;   // handle for read_single_io service
   ros::ServiceServer srv_write_single_io;   // handle for write_single_io service
+  ros::Publisher pub_joint_effort_;
 
   ros::NodeHandle node_;
   boost::mutex mutex_;

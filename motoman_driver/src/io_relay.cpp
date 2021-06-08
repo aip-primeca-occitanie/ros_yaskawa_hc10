@@ -43,6 +43,7 @@ namespace io_relay
 {
 
 using industrial::shared_types::shared_int;
+using industrial::shared_types::shared_real;
 
 bool MotomanIORelay::init(int default_port)
 {
@@ -101,6 +102,99 @@ bool MotomanIORelay::init(int default_port)
   return true;
 }
 
+bool MotomanIORelay::readIoCB()
+{
+  Mregister::reserve r;
+  
+  shared_int address = 1000030;
+  shared_int address1 = 1000031;
+
+  shared_int val=-1;
+  shared_int val1=-1;
+  shared_real value, value1;
+  std::string err_msg;
+  //this->mutex_.lock();
+  bool result = this->io_ctrl_.readSingleIO(address,val,err_msg);
+  //this->mutex_.unlock();
+  //this->mutex_.lock();
+  bool result1 = this->io_ctrl_.readSingleIO(address1,val1,err_msg);
+  //this->mutex_.unlock();
+  
+  value = (val - 10000)*0.1;
+  value1 = (val1 - 10000)*0.1;
+
+  ROS_DEBUG_STREAM_NAMED("io.read", "Address " << address << ", value: " << val);
+
+  this->effort_value.address = address;
+  this->effort_value.value = value;
+  //ROS_INFO("%f", this->effort_value.value);
+  this->effort_value.address1 = address1;
+  this->effort_value.value1 = value1;
+  //ROS_INFO("%f", this->effort_value.value1);
+
+  
+  ROS_INFO("message to publish when it works");
+
+  std::bitset<32> bs2(val);
+  std::cout << "Valeur poid faible:  " << bs2 << '\n';
+   
+  if (val1 != 0)
+  {
+    std::bitset<32> bs1(val1); //2^(n) - 1 avec n =16.
+    std::cout << "valeur poid fort sans décalage:  " << bs1 << '\n';
+
+    std::bitset<32> bs3(val1); 
+    bs3 = (bs3<<16);//2^(n) - 1 avec n =16.   ///+65535
+    std::cout << "valeur poid fort décalé:  " << (bs3) << '\n';
+
+    unsigned long myLong = (bs3 | bs2).to_ulong();
+    std::cout << "Conversion après concatenation: " << myLong << '\n';
+    
+    int a = 1;
+    std::bitset<32> bs100(a);
+    std::bitset<32> bs200((bs3 | bs2).flip());
+
+    //bs200 =  + 1;
+    unsigned long abc = bs200.to_ulong();
+    std::bitset<32> akm(abc+1);
+    std::cout << "Concat   : " << (bs3 | bs2) << '\n';
+    std::cout << "RESULTAT : " << bs200.to_ulong() << '\n';
+    long akm_long = akm.to_ulong();
+
+    if(val1>=32768)
+    {
+      std::cout << "RESULTAT2: " << akm_long << '\n';
+      float myFloat = akm_long;
+      myFloat = -1*myFloat/1000;
+      std::cout << "Position en mm: " << myFloat << '\n';
+      this->effort_value.position = myFloat;
+    }
+    else
+    {
+      float myFloat = (float)myLong/1000;
+      std::cout << "Position en mm: " << myFloat << '\n';
+      this->effort_value.position = myFloat;
+    }
+
+
+  }
+  else
+  {
+    std::bitset<32> bs1(val1);
+    std::cout << "valeur poid fort sans décalage:  " << bs1 << '\n';
+    unsigned long myLong = (bs1 | bs2).to_ulong();
+    std::cout << "Conversion après concatenation:" << myLong << '\n';
+    float myFloat = (float)myLong/1000;
+    std::cout << "Position en mm: " << myFloat << '\n';
+    this->effort_value.position = myFloat;
+
+  }
+  this->pub_joint_effort_= this->node_.advertise<motoman_msgs::Effort>("joint_efforts",1);
+  this->pub_joint_effort_.publish(this->effort_value);
+
+  return result | result1;
+}
+
 // Service to read a single IO
 bool MotomanIORelay::readSingleIoCB(
   motoman_msgs::ReadSingleIO::Request &req,
@@ -108,6 +202,7 @@ bool MotomanIORelay::readSingleIoCB(
 {
   shared_int io_val = -1;
   std::string err_msg;
+  shared_real io_val1;
 
   // send message and release mutex as soon as possible
   this->mutex_.lock();
@@ -127,6 +222,7 @@ bool MotomanIORelay::readSingleIoCB(
 
     return true;
   }
+  io_val1 = (io_val - 10000)*0.1;
 
   ROS_DEBUG_STREAM_NAMED("io.read", "Address " << req.address << ", value: " << io_val);
 

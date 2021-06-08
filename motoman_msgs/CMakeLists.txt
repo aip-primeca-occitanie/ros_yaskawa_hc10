@@ -18,6 +18,7 @@ add_message_files(
     DynamicJointState.msg
     DynamicJointTrajectory.msg
     DynamicJointTrajectoryFeedback.msg
+    Effort.msg
 )
 
 add_service_files(
