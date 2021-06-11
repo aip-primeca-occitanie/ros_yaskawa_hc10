@@ -18,6 +18,8 @@ add_message_files(
     DynamicJointState.msg
     DynamicJointTrajectory.msg
     DynamicJointTrajectoryFeedback.msg
+    Position.msg
+    Vitesse.msg
     Effort.msg
 )
 

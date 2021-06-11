@@ -38,12 +38,16 @@
 #include "motoman_msgs/WriteSingleIO.h"
 #include <boost/thread.hpp>
 
+#include "motoman_msgs/Position.h"
+#include "motoman_msgs/Vitesse.h"
 #include "motoman_msgs/Effort.h"
 #include "motoman_driver/motoman_memory.h"
 #include <bitset>
 
-using motoman::yrc1000_memory::Mregister;
+//using motoman::yrc1000_memory::Mregister;
 using industrial::shared_types::shared_int;
+using industrial::shared_types::shared_real;
+
 
 namespace motoman
 {
@@ -74,13 +78,27 @@ public:
    */
   bool readIoCB();
 
+  bool positionCB();
+  bool vitesseCB();
+  bool effortCB();
+  shared_real to_newton(shared_int in);
+  void to_mm(shared_real &value);
+  void to_deg(shared_real &value);
+
+  void readDoubleIO(shared_int address1, shared_real &myFloat);
+
 protected:
   io_ctrl::MotomanIoCtrl io_ctrl_;
-  motoman_msgs::Effort effort_value;
+  motoman_msgs::Position position_msg;
+  motoman_msgs::Vitesse vitesse_msg;
+  motoman_msgs::Effort effort_msg;
 
   ros::ServiceServer srv_read_single_io;   // handle for read_single_io service
   ros::ServiceServer srv_write_single_io;   // handle for write_single_io service
-  ros::Publisher pub_joint_effort_;
+  ros::Publisher pub_position_;
+  ros::Publisher pub_vitesse_;
+  ros::Publisher pub_effort_;
+
 
   ros::NodeHandle node_;
   boost::mutex mutex_;

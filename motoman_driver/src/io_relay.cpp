@@ -102,97 +102,248 @@ bool MotomanIORelay::init(int default_port)
   return true;
 }
 
-bool MotomanIORelay::readIoCB()
+bool MotomanIORelay::positionCB()
 {
-  Mregister::reserve r;
-  
-  shared_int address = 1000030;
-  shared_int address1 = 1000031;
+  motoman::yrc1000_memory::Mregister::reserve reserve;
+  shared_real pos_s=-1, pos_l=-1, pos_u=-1, pos_r=-1, pos_b=-1, pos_t=-1; 
+  shared_real pos_x=-1, pos_y=-1, pos_z=-1; 
+  shared_real rot_x=-1, rot_y=-1, rot_z=-1;
 
-  shared_int val=-1;
-  shared_int val1=-1;
-  shared_real value, value1;
+  //Axes
+  this->readDoubleIO(reserve.POS_S,pos_s); this->to_deg(pos_s);
+  this->readDoubleIO(reserve.POS_L,pos_l); this->to_deg(pos_l);
+  this->readDoubleIO(reserve.POS_U,pos_u); this->to_deg(pos_u);
+  this->readDoubleIO(reserve.POS_R,pos_r); this->to_deg(pos_r);
+  this->readDoubleIO(reserve.POS_B,pos_b); this->to_deg(pos_b);
+  this->readDoubleIO(reserve.POS_T,pos_t); this->to_deg(pos_t);
+  
+  //TCP
+  this->readDoubleIO(reserve.POS_X,pos_x);  this->to_mm(pos_x);
+  this->readDoubleIO(reserve.POS_Y,pos_y);  this->to_mm(pos_y);
+  this->readDoubleIO(reserve.POS_Z,pos_z);  this->to_mm(pos_z);
+  this->readDoubleIO(reserve.POS_Rx,rot_x); this->to_deg(rot_x);
+  this->readDoubleIO(reserve.POS_Ry,rot_y); this->to_deg(rot_y);
+  this->readDoubleIO(reserve.POS_Rz,rot_z); this->to_deg(rot_z);
+
+  this->position_msg.pos_s = pos_s;
+  this->position_msg.pos_l = pos_l;
+  this->position_msg.pos_u = pos_u;
+  this->position_msg.pos_r = pos_r;
+  this->position_msg.pos_b = pos_b;
+  this->position_msg.pos_t = pos_t;
+
+  this->position_msg.pos_x = pos_x;
+  this->position_msg.pos_y = pos_y;
+  this->position_msg.pos_z = pos_z;
+
+  this->position_msg.rot_x = rot_x;
+  this->position_msg.rot_y = rot_y;
+  this->position_msg.rot_z = rot_z;
+
+  this->pub_position_= this->node_.advertise<motoman_msgs::Position>("joint_position",1);
+  this->pub_position_.publish(this->position_msg);
+}
+
+bool MotomanIORelay::vitesseCB()
+{
+  motoman::yrc1000_memory::Mregister::reserve reserve;
+  shared_real vit_s=-1, vit_l=-1, vit_u=-1, vit_r=-1, vit_b=-1, vit_t=-1; 
+  shared_real vit_tcp=-1;
+
+  //Axes
+  this->readDoubleIO(reserve.VIT_S,vit_s); this->to_deg(vit_s);
+  this->readDoubleIO(reserve.VIT_L,vit_l); this->to_deg(vit_l);
+  this->readDoubleIO(reserve.VIT_U,vit_u); this->to_deg(vit_u);
+  this->readDoubleIO(reserve.VIT_R,vit_r); this->to_deg(vit_r);
+  this->readDoubleIO(reserve.VIT_B,vit_b); this->to_deg(vit_b);
+  this->readDoubleIO(reserve.VIT_T,vit_t); this->to_deg(vit_t);
+  
+  //TCP
+  this->readDoubleIO(reserve.VIT_TCP,vit_tcp); this->to_mm(vit_tcp);
+
+  this->vitesse_msg.vit_s = vit_s;
+  this->vitesse_msg.vit_l = vit_l;
+  this->vitesse_msg.vit_u = vit_u;
+  this->vitesse_msg.vit_r = vit_r;
+  this->vitesse_msg.vit_b = vit_b;
+  this->vitesse_msg.vit_t = vit_t;
+
+  this->vitesse_msg.vit_tcp = vit_tcp;
+
+
+  this->pub_vitesse_= this->node_.advertise<motoman_msgs::Vitesse>("joint_vitesse",1);
+  this->pub_vitesse_.publish(this->vitesse_msg);
+}
+
+bool MotomanIORelay::effortCB()
+{
+  motoman::yrc1000_memory::Mregister::reserve reserve;
+  shared_real couple_s, couple_l, couple_u, couple_r, couple_b, couple_t; 
+  shared_real couple_x, couple_y, couple_z; 
+  shared_real f_x, f_y, f_z, f_totale;
+  bool boolean;
   std::string err_msg;
-  //this->mutex_.lock();
-  bool result = this->io_ctrl_.readSingleIO(address,val,err_msg);
-  //this->mutex_.unlock();
-  //this->mutex_.lock();
-  bool result1 = this->io_ctrl_.readSingleIO(address1,val1,err_msg);
-  //this->mutex_.unlock();
-  
-  value = (val - 10000)*0.1;
-  value1 = (val1 - 10000)*0.1;
+  shared_int value=-1;
 
-  ROS_DEBUG_STREAM_NAMED("io.read", "Address " << address << ", value: " << val);
 
-  this->effort_value.address = address;
-  this->effort_value.value = value;
-  //ROS_INFO("%f", this->effort_value.value);
-  this->effort_value.address1 = address1;
-  this->effort_value.value1 = value1;
-  //ROS_INFO("%f", this->effort_value.value1);
+  //Axes
+  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_S,value,err_msg); couple_s = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_L,value,err_msg); couple_l = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_U,value,err_msg); couple_u = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_R,value,err_msg); couple_r = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_B,value,err_msg); couple_b = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_T,value,err_msg); couple_t = this->to_newton(value);
 
-  
-  ROS_INFO("message to publish when it works");
+  //TCP
+  boolean = this->io_ctrl_.readSingleIO(reserve.Fe_X,value,err_msg); f_x = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.Fe_Y,value,err_msg); f_y = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.Fe_Z,value,err_msg); f_z = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.Fe_Totale,value,err_msg); f_totale = this->to_newton(value);
 
-  std::bitset<32> bs2(val);
-  std::cout << "Valeur poid faible:  " << bs2 << '\n';
-   
-  if (val1 != 0)
+  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_X,value,err_msg); couple_x = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_Y,value,err_msg); couple_y = this->to_newton(value);
+  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_Z,value,err_msg); couple_z = this->to_newton(value);
+
+  this->effort_msg.couple_s = couple_s;
+  this->effort_msg.couple_l = couple_l;
+  this->effort_msg.couple_u = couple_u;
+  this->effort_msg.couple_r = couple_r;
+  this->effort_msg.couple_b = couple_b;
+  this->effort_msg.couple_t = couple_t;
+
+  this->effort_msg.f_x = f_x;
+  this->effort_msg.f_y = f_y;
+  this->effort_msg.f_z = f_z;
+  this->effort_msg.f_totale = f_totale;
+
+  this->effort_msg.couple_x = couple_x;
+  this->effort_msg.couple_y = couple_y;
+  this->effort_msg.couple_z = couple_z;
+
+  this->pub_effort_= this->node_.advertise<motoman_msgs::Effort>("joint_effort",1);
+  this->pub_effort_.publish(this->effort_msg);
+}
+
+
+bool MotomanIORelay::readIoCB() 
+{
+  motoman::yrc1000_memory::Mregister::reserve reserve;
+  shared_real pos=-1;
+  this->readDoubleIO(reserve.POS_X,pos);
+  this->position_msg.pos_x = pos;
+  this->pub_position_= this->node_.advertise<motoman_msgs::Effort>("joint_efforts",1);
+  this->pub_position_.publish(this->position_msg);
+
+  return 1;//result | result1;
+}
+
+void MotomanIORelay::readDoubleIO(shared_int address1, shared_real &myFloat)
+{
+    int val1 =-1;
+    int val2 =-1;
+    int address2 = address1 + 1;
+    std::string err_msg1, err_msg2;
+
+    this->mutex_.lock();
+    bool result1 = this->io_ctrl_.readSingleIO(address1,val1,err_msg1);
+    this->mutex_.unlock();
+    this->mutex_.lock();
+    bool result2 = this->io_ctrl_.readSingleIO(address2,val2,err_msg2);
+    this->mutex_.unlock();
+
+    std::bitset<32> p_faible(val1); //Poids faible
+    //std::cout << "Valeur poids faible:  " << p_faible << '\n';
+
+    std::bitset<32> p_fort(val2); //Poids fort
+    //std::cout << "Valeur poids fort:  " << p_fort << '\n';
+
+  if(result1 & result2)
   {
-    std::bitset<32> bs1(val1); //2^(n) - 1 avec n =16.
-    std::cout << "valeur poid fort sans décalage:  " << bs1 << '\n';
-
-    std::bitset<32> bs3(val1); 
-    bs3 = (bs3<<16);//2^(n) - 1 avec n =16.   ///+65535
-    std::cout << "valeur poid fort décalé:  " << (bs3) << '\n';
-
-    unsigned long myLong = (bs3 | bs2).to_ulong();
-    std::cout << "Conversion après concatenation: " << myLong << '\n';
-    
-    int a = 1;
-    std::bitset<32> bs100(a);
-    std::bitset<32> bs200((bs3 | bs2).flip());
-
-    //bs200 =  + 1;
-    unsigned long abc = bs200.to_ulong();
-    std::bitset<32> akm(abc+1);
-    std::cout << "Concat   : " << (bs3 | bs2) << '\n';
-    std::cout << "RESULTAT : " << bs200.to_ulong() << '\n';
-    long akm_long = akm.to_ulong();
-
-    if(val1>=32768)
+    if(val2 != 0)
     {
-      std::cout << "RESULTAT2: " << akm_long << '\n';
-      float myFloat = akm_long;
-      myFloat = -1*myFloat/1000;
-      std::cout << "Position en mm: " << myFloat << '\n';
-      this->effort_value.position = myFloat;
+      p_fort = (p_fort<<16); //2^(n) - 1 avec n =16.   //+65535
+      //std::cout << "Valeur poids fort décalé:  " << p_fort << '\n';
+
+      unsigned long conv = (p_fort | p_faible).to_ulong();
+      //std::cout << "Conversion après concatenation: " << conv << '\n';
+
+      //Complement à 2
+      std::bitset<32> bs200((p_fort | p_faible).flip());
+      //std::bitset<32> bs200
+      //bs200 = (p_fort | p_faible).flip();
+      int a =1;
+      unsigned long convC2 = bs200.to_ulong(); //conversion en ulong
+      std::bitset<32> akm(convC2+a);
+      //std::cout << "Concat   : " << (p_fort | p_faible) << '\n';
+      //std::cout << "RESULTAT : " << bs200.to_ulong() << '\n';
+      unsigned long akm_long = akm.to_ulong();
+
+      if(val2>=32768)   //32768 = 1<<15
+      {
+        //std::cout << "RESULTAT2: " << akm_long << '\n';
+        myFloat = akm_long;
+        myFloat = -1*myFloat;//1000;
+        //std::cout << "Position en mm: " << myFloat << '\n';
+        //return myFloat;
+        //this->effort_value.position = myFloat;
+      }
+      else
+      {
+        myFloat = (float)conv;//1000;
+        //std::cout << "Position en mm: " << myFloat << '\n';
+        //return myFloat;
+        //this->effort_value.position = myFloat;
+      }
     }
     else
     {
-      float myFloat = (float)myLong/1000;
-      std::cout << "Position en mm: " << myFloat << '\n';
-      this->effort_value.position = myFloat;
+      std::bitset<32> p_fort(val2);
+      //std::cout << "valeur poids fort sans décalage:  " << p_fort << '\n';
+      unsigned long conv = (p_fort | p_faible).to_ulong();
+      //std::cout << "Conversion après concatenation:" << conv << '\n';
+      myFloat = (float)conv;//1000;
+      //std::cout << "Position en mm: " << myFloat << '\n';
+      //return myFloat;
+      //this->effort_value.position = myFloat;
     }
-
 
   }
   else
   {
-    std::bitset<32> bs1(val1);
-    std::cout << "valeur poid fort sans décalage:  " << bs1 << '\n';
-    unsigned long myLong = (bs1 | bs2).to_ulong();
-    std::cout << "Conversion après concatenation:" << myLong << '\n';
-    float myFloat = (float)myLong/1000;
-    std::cout << "Position en mm: " << myFloat << '\n';
-    this->effort_value.position = myFloat;
-
+    if(!result1)
+    {
+      // provide caller with failure indication
+      std::stringstream message;
+      message << "Read failed (address: " << address1 << "): " << err_msg1;
+      ROS_ERROR_STREAM_NAMED("io.read", message.str());
+      //return 0;
+    }
+    
+    if(!result2)
+    {
+      // provide caller with failure indication
+      std::stringstream message;
+      message << "Read failed (address: " << address2 << "): " << err_msg1;
+      ROS_ERROR_STREAM_NAMED("io.read", message.str());
+      //return 0;
+    }
   }
-  this->pub_joint_effort_= this->node_.advertise<motoman_msgs::Effort>("joint_efforts",1);
-  this->pub_joint_effort_.publish(this->effort_value);
 
-  return result | result1;
+}
+
+shared_real MotomanIORelay::to_newton(shared_int in)
+{
+  shared_real out;
+  return out = (in - 10000)*0.1;
+}
+
+void MotomanIORelay::to_mm(shared_real &value)
+{
+  value = value*1e-3;
+}
+void MotomanIORelay::to_deg(shared_real&value)
+{
+  value = value*1e-4;
 }
 
 // Service to read a single IO
@@ -202,7 +353,6 @@ bool MotomanIORelay::readSingleIoCB(
 {
   shared_int io_val = -1;
   std::string err_msg;
-  shared_real io_val1;
 
   // send message and release mutex as soon as possible
   this->mutex_.lock();
@@ -222,7 +372,6 @@ bool MotomanIORelay::readSingleIoCB(
 
     return true;
   }
-  io_val1 = (io_val - 10000)*0.1;
 
   ROS_DEBUG_STREAM_NAMED("io.read", "Address " << req.address << ", value: " << io_val);
 

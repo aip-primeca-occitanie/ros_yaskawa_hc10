@@ -56,3 +56,6 @@ motoman_driver/MotoPlus/_buildLog/MotoROSYRC1000u.log
 **/.history
 
 # End of https://www.gitignore.io/api/visualstudiocode
+
+build/*
+devel/*

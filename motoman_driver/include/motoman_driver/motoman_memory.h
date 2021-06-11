@@ -42,16 +42,16 @@ typedef enum
     POS_L = 1000012,
     POS_U = 1000014,
     POS_R = 1000016,
-    POS_B = 1000018,
-    POS_T = 1000020,
+    POS_B = 1000020,
+    POS_T = 1000022,
 
     POS_X = 1000030,
     POS_Y = 1000032,
     POS_Z = 1000034,
     POS_Rx = 1000036,
-    POS_Ry = 1000038,
-    POS_Rz = 1000040,
-    POS_Re = 1000042
+    POS_Ry = 1000040,
+    POS_Rz = 1000042,
+    POS_Re = 1000044
 
 } POS; // Codé sur 4 octets
 
@@ -61,8 +61,8 @@ typedef enum
     VIT_L = 1000052,
     VIT_U = 1000054,
     VIT_R = 1000056,
-    VIT_B = 1000058,
-    VIT_T = 1000060,
+    VIT_B = 1000060,
+    VIT_T = 1000062,
 
     VIT_TCP = 1000070,
 

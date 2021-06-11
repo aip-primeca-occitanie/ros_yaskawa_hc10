@@ -48,12 +48,14 @@ int main(int argc, char** argv)
 
   while (ros::ok()){
     ROS_INFO("START");
-    bool boolean = io_relay.readIoCB();
+    bool boolean = io_relay.positionCB();
+    bool boolean1 = io_relay.vitesseCB();
+    bool boolean2 = io_relay.effortCB();
     ROS_INFO("FINISH");
     ros::spinOnce();
     loop_rate.sleep();
   }
   
- // ros::spin();
+  //ros::spin();
   return 0;
 }
