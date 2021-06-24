@@ -178,50 +178,87 @@ bool MotomanIORelay::vitesseCB()
 bool MotomanIORelay::effortCB()
 {
   motoman::yrc1000_memory::Mregister::reserve reserve;
-  shared_real couple_s, couple_l, couple_u, couple_r, couple_b, couple_t; 
-  shared_real couple_x, couple_y, couple_z; 
-  shared_real f_x, f_y, f_z, f_totale;
-  bool boolean;
-  std::string err_msg;
   shared_int value=-1;
+  shared_real couple, force, force_totale;
+  std::string err_msg;
 
+  this->effort_msg.CoupleJoints.clear();
+  this->effort_msg.CoupleTCP.clear();
+  this->effort_msg.ForceTCP.clear();
 
-  //Axes
-  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_S,value,err_msg); couple_s = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_L,value,err_msg); couple_l = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_U,value,err_msg); couple_u = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_R,value,err_msg); couple_r = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_B,value,err_msg); couple_b = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_T,value,err_msg); couple_t = this->to_newton(value);
+  //Couple Joints
+  for(int it=reserve.TRQe_S; it<=reserve.TRQe_T;it++)
+  {
+    this->mutex_.lock();
+    bool result = this->io_ctrl_.readSingleIO(it,value,err_msg);
+    this->mutex_.unlock();
+    if(!result)
+    {
+      // provide caller with failure indication
+      std::stringstream message;
+      message << "Read failed (address: " << it << "): " << err_msg;
+      ROS_ERROR_STREAM_NAMED("io.read", message.str());
+      return result;
+    }
+    couple = this->to_newton(value); 
+    this->effort_msg.CoupleJoints.push_back(couple);
+  }
 
-  //TCP
-  boolean = this->io_ctrl_.readSingleIO(reserve.Fe_X,value,err_msg); f_x = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.Fe_Y,value,err_msg); f_y = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.Fe_Z,value,err_msg); f_z = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.Fe_Totale,value,err_msg); f_totale = this->to_newton(value);
+  //Couple TCP
+  for(int it=reserve.TRQe_X; it<=reserve.TRQe_Z;it++)
+  {
+    this->mutex_.lock();
+    bool result = this->io_ctrl_.readSingleIO(it,value,err_msg);
+    this->mutex_.unlock();
+    if(!result)
+    {
+      // provide caller with failure indication
+      std::stringstream message;
+      message << "Read failed (address: " << it << "): " << err_msg;
+      ROS_ERROR_STREAM_NAMED("io.read", message.str());
+      return result;
+    }
+    couple = this->to_newton(value); 
+    this->effort_msg.CoupleTCP.push_back(couple);
+  }
 
-  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_X,value,err_msg); couple_x = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_Y,value,err_msg); couple_y = this->to_newton(value);
-  boolean = this->io_ctrl_.readSingleIO(reserve.TRQe_Z,value,err_msg); couple_z = this->to_newton(value);
+  //Force TCP
+  for(int it=reserve.Fe_X; it<=reserve.Fe_Z;it++)
+  {
+    this->mutex_.lock();
+    bool result = this->io_ctrl_.readSingleIO(it,value,err_msg);
+    this->mutex_.unlock();
+    if(!result)
+    {
+      // provide caller with failure indication
+      std::stringstream message;
+      message << "Read failed (address: " << it << "): " << err_msg;
+      ROS_ERROR_STREAM_NAMED("io.read", message.str());
+      return result;
+    }
+    force = this->to_newton(value); 
+    this->effort_msg.ForceTCP.push_back(force);
+  }
 
-  this->effort_msg.couple_s = couple_s;
-  this->effort_msg.couple_l = couple_l;
-  this->effort_msg.couple_u = couple_u;
-  this->effort_msg.couple_r = couple_r;
-  this->effort_msg.couple_b = couple_b;
-  this->effort_msg.couple_t = couple_t;
+  //Force totale TCP
+  this->mutex_.lock();
+  bool result = this->io_ctrl_.readSingleIO(reserve.Fe_Totale,value,err_msg); force_totale = this->to_newton(value);
+  this->mutex_.unlock();
 
-  this->effort_msg.f_x = f_x;
-  this->effort_msg.f_y = f_y;
-  this->effort_msg.f_z = f_z;
-  this->effort_msg.f_totale = f_totale;
-
-  this->effort_msg.couple_x = couple_x;
-  this->effort_msg.couple_y = couple_y;
-  this->effort_msg.couple_z = couple_z;
+  if(!result)
+  {
+    // provide caller with failure indication
+    std::stringstream message;
+    message << "Read failed (address: " << reserve.Fe_Totale << "): " << err_msg;
+    ROS_ERROR_STREAM_NAMED("io.read", message.str());
+    return result;
+  }
+  force_totale = this->to_newton(value);
+  this->effort_msg.ForceTotaleTCP = force_totale;
 
   this->pub_effort_= this->node_.advertise<motoman_msgs::Effort>("joint_effort",1);
   this->pub_effort_.publish(this->effort_msg);
+  return true;
 }
 
 
@@ -252,59 +289,48 @@ void MotomanIORelay::readDoubleIO(shared_int address1, shared_real &myFloat)
     this->mutex_.unlock();
 
     std::bitset<32> p_faible(val1); //Poids faible
-    //std::cout << "Valeur poids faible:  " << p_faible << '\n';
-
     std::bitset<32> p_fort(val2); //Poids fort
-    //std::cout << "Valeur poids fort:  " << p_fort << '\n';
 
   if(result1 & result2)
   {
     if(val2 != 0)
     {
-      p_fort = (p_fort<<16); //2^(n) - 1 avec n =16.   //+65535
-      //std::cout << "Valeur poids fort décalé:  " << p_fort << '\n';
+      //Décalage du poids fort. 2^(n) - 1 avec n=16.  
+      p_fort = (p_fort<<16);
+      
+      //Concatenation et conversion en ulong
+      unsigned long conv = (p_fort | p_faible).to_ulong(); 
+      
+      ////////////////////
+      // Complement à 2 //
+      ////////////////////
 
-      unsigned long conv = (p_fort | p_faible).to_ulong();
-      //std::cout << "Conversion après concatenation: " << conv << '\n';
-
-      //Complement à 2
+      //Inversion des bits
       std::bitset<32> bs200((p_fort | p_faible).flip());
-      //std::bitset<32> bs200
-      //bs200 = (p_fort | p_faible).flip();
-      int a =1;
-      unsigned long convC2 = bs200.to_ulong(); //conversion en ulong
-      std::bitset<32> akm(convC2+a);
-      //std::cout << "Concat   : " << (p_fort | p_faible) << '\n';
-      //std::cout << "RESULTAT : " << bs200.to_ulong() << '\n';
-      unsigned long akm_long = akm.to_ulong();
+      //conversion en ulong
+      unsigned long convFlip = bs200.to_ulong(); 
+      //Addition (+1)
+      int a = 1;      
+      std::bitset<32> bin_Ca2(convFlip+a);
+      
+      //Conversion en ulong après le Complement a 2.
+      unsigned long conv_Ca2 = bin_Ca2.to_ulong();
 
-      if(val2>=32768)   //32768 = 1<<15
+      if(val2>=32768)   //Valeur négative.  1<<15 = 32768. 
       {
-        //std::cout << "RESULTAT2: " << akm_long << '\n';
-        myFloat = akm_long;
-        myFloat = -1*myFloat;//1000;
-        //std::cout << "Position en mm: " << myFloat << '\n';
-        //return myFloat;
-        //this->effort_value.position = myFloat;
+        myFloat = conv_Ca2;
+        myFloat = -1*myFloat;
       }
-      else
+      else //Valeur positive.
       {
-        myFloat = (float)conv;//1000;
-        //std::cout << "Position en mm: " << myFloat << '\n';
-        //return myFloat;
-        //this->effort_value.position = myFloat;
+        myFloat = (float)conv;
       }
     }
-    else
+    else //p_fort = 0
     {
-      std::bitset<32> p_fort(val2);
-      //std::cout << "valeur poids fort sans décalage:  " << p_fort << '\n';
-      unsigned long conv = (p_fort | p_faible).to_ulong();
-      //std::cout << "Conversion après concatenation:" << conv << '\n';
-      myFloat = (float)conv;//1000;
-      //std::cout << "Position en mm: " << myFloat << '\n';
-      //return myFloat;
-      //this->effort_value.position = myFloat;
+      //Conversion en ulong
+      unsigned long conv = p_faible.to_ulong();
+      myFloat = (float)conv;
     }
 
   }
@@ -316,7 +342,6 @@ void MotomanIORelay::readDoubleIO(shared_int address1, shared_real &myFloat)
       std::stringstream message;
       message << "Read failed (address: " << address1 << "): " << err_msg1;
       ROS_ERROR_STREAM_NAMED("io.read", message.str());
-      //return 0;
     }
     
     if(!result2)
@@ -325,7 +350,6 @@ void MotomanIORelay::readDoubleIO(shared_int address1, shared_real &myFloat)
       std::stringstream message;
       message << "Read failed (address: " << address2 << "): " << err_msg1;
       ROS_ERROR_STREAM_NAMED("io.read", message.str());
-      //return 0;
     }
   }
 
@@ -341,6 +365,7 @@ void MotomanIORelay::to_mm(shared_real &value)
 {
   value = value*1e-3;
 }
+
 void MotomanIORelay::to_deg(shared_real&value)
 {
   value = value*1e-4;

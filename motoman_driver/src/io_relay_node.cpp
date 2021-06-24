@@ -48,9 +48,9 @@ int main(int argc, char** argv)
 
   while (ros::ok()){
     ROS_INFO("START");
-    bool boolean = io_relay.positionCB();
-    bool boolean1 = io_relay.vitesseCB();
-    bool boolean2 = io_relay.effortCB();
+    bool position = io_relay.positionCB();
+    bool vitesse = io_relay.vitesseCB();
+    bool effort = io_relay.effortCB();
     ROS_INFO("FINISH");
     ros::spinOnce();
     loop_rate.sleep();
