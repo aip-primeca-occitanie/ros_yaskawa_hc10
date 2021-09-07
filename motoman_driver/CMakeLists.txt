@@ -147,11 +147,6 @@ set_target_properties(motoman_io_relay
   PROPERTIES OUTPUT_NAME io_relay
   PREFIX "")
 
-# WatchDog node
-add_executable(watchdog
-src/watchdog.cpp)
-target_link_libraries(watchdog ${catkin_LIBRARIES})
-
 #----------------------------------------------------------------
 # FS100 uses opposite byte-ordering from most i386-based PCs
 # Simple message library
