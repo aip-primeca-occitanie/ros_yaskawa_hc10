@@ -236,7 +236,7 @@ typedef struct sfty_fs sfty_fs;
 /* YRC1000
 
 Extract taken from Motoplus/IoServer.h  
-These addresses may change depending on the robot model. So, refer also 
+These addresses may change depending on the robot controller. So, refer also 
 to the Yaskawa Motoman documentation on IO addressing and configuration.
 
 In this case, we refered to the
