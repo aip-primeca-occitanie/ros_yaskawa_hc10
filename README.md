@@ -16,7 +16,7 @@ sudo apt install ros-melodic-industrial-core
 ```
 We assume a [Catkin workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace) has already been created. If not, please follow the instructions for creating one.
 
-Follow the next steps in order to build the `-devel-AP` branch on a ROS Melodic system:
+Follow the next steps in order to build the `-devel-AP` branch on a **ROS Melodic** system:
 
 ```bash
 # change to the src folder of the Catkin workspace
@@ -43,30 +43,36 @@ source ~/.bashrc
 ```
 
 ## Planning and Execution with MoveIt!
-To simulate the robot:
+### To simulate the robot:
 ```bash
 roslaunch motoman_hc10_moveit_config moveit_planning_execution.launch 
 ```
-To connect to the real robot:
+### To connect to the real robot:
 ```bash
 # By default, sim:=True. If needed you can also modify the robot_ip address.
 roslaunch motoman_hc10_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.0.113 controller:=yrc1000
 ```
-Make sure the robot is able to receive commands by setting the **Teach pendant** to `Remote Mode` and using:
+Make sure the robot is able to receive commands by setting the **Teach pendant** to `Remote Mode` and running in another terminal:
 ```bash
+#Activate your workspace in every new terminal
+source ~/catkin_ws/devel/setup.bash
 # Enabling ROS commands
 rosservice call /robot_enable
 ```
 Now, you can start controlling your robot with Moveit!
 
-![GitHub Logo](/images/logo.png)
-Format: ![Alt Text](url)
-
-
-### Example
-The `execute_trajectroy.py` script plans and executes trajectories to predefined configurations (defined in the srdf file). For the robot to move you must uncomment the required lines in the script and then run:
+**Note:** In order to ***disable*** ROS commands you must run:
 
 ```bash
+# Disabling ROS commands
+rosservice call /robot_disable
+```
+
+### Example 
+The `execute_trajectroy.py` script in the `motoman_hc10_moveit_config` package, plans and executes trajectories to predefined configurations (defined in the srdf file which is placed on the `config` folder). For the robot to move you must uncomment the required lines in the script and then run in another terminal:
+
+```bash
+source ~/catkin_ws/devel/setup.bash
 # The function '.go' is blocking, trajectory execution will only stop after reaching the target
 rosrun motoman_hc10_moveit_config execute_trajectory.py
 ```
@@ -74,7 +80,7 @@ rosrun motoman_hc10_moveit_config execute_trajectory.py
 
 ## Reading the sensor registers
 
-The ROS-Industrial Simple Message protocol does not have an ID (yet) for sending and receiving effort data. Even so, we can acces this information by reading some of the controller registers. For this purpose, we use the Motoman specific IDs [REP-I0004](https://github.com/ros-industrial/rep/blob/master/rep-I0004.rst). Please, check the documentation ont this repository to understand how this can be done from a ROS perspective as well as a controller perspective.
+The ROS-Industrial Simple Message protocol does not have an ID (yet) for sending and receiving effort data. Even so, we can acces this information by reading some of the controller registers. For this purpose, we use the Motoman specific IDs [REP-I0004](https://github.com/ros-industrial/rep/blob/master/rep-I0004.rst). Please, check the documentation on this repository to understand how this can be done from a ROS perspective as well as a controller perspective.
 
 By default, some registers are already being read. You can disable this option by commenting the call to the `io_relay` node in the `robot_interface_streaming.launch` file of the `motoman_driver` package.
 
