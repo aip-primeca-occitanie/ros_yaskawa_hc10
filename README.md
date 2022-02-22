@@ -10,7 +10,7 @@ You can find all of them in the `-devel-AP` branch.
 This project aims to control a Yaskawa HC10 robot through ROS. A `motoman_hc10_moveit_config` package was created for the planning and execution of trajectories. Also, a solution to exploit the robot's collabotive functionalities was developped. This solution involves reading sensor data through I/O access.
 
 ## How to build
-This repository has been successfully built on Ubuntu Bionic/ROS Melodic. It depends on the `industrial_core` repository, so you may need to install the binaries and dependencies associated using:
+This repository has been successfully built on Ubuntu Bionic/ROS Melodic. It depends on the `industrial_core`and `move-it`repository, so you may need to install the binaries and dependencies associated using:
 ```bash
 sudo apt install ros-melodic-industrial-core ros-melodic-moveit 
 ```
