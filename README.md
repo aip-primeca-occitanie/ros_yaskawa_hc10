@@ -12,7 +12,7 @@ This project aims to control a Yaskawa HC10 robot through ROS. A `motoman_hc10_m
 ## How to build
 This repository has been successfully built on Ubuntu Bionic/ROS Melodic. It depends on the `industrial_core` repository, so you may need to install the binaries and dependencies associated using:
 ```bash
-sudo apt install ros-melodic-industrial-core
+sudo apt install ros-melodic-industrial-core ros-melodic-moveit 
 ```
 We assume a [Catkin workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace) has already been created. If not, please follow the instructions for creating one.
 
