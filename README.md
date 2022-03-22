@@ -50,7 +50,7 @@ roslaunch motoman_hc10_moveit_config moveit_planning_execution.launch
 ### To connect to the real robot:
 ```bash
 # By default, sim:=True. If needed you can also modify the robot_ip address.
-roslaunch motoman_hc10_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.0.113 controller:=yrc1000
+roslaunch motoman_hc10_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.1.40 controller:=yrc1000
 ```
 Make sure the robot is able to receive commands by setting the **Teach pendant** to `Remote Mode` and running in another terminal:
 ```bash
