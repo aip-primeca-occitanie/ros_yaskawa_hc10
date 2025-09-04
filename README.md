@@ -1,11 +1,12 @@
 # ros_yaskawa_hc10
-Pilotage d'un robot collaboratif HC10 /Control of an HC10 collaborative robot
+Pilotage d'un robot collaboratif HC10 /Control of an HC10 collaborative robot.
+
+This branch was formerly called `devel-AP`. It contains all the files made until 2021.
 
 *Auteure: Andrea Melissa Pérez Peña - Github ID: andreaPP9*
 
 ## Contents
 This is a fork made from the motoman_driver repository. Only the packages related to the motoman HC10 robot were kept since it is the model being used at the AIP.
-You can find all of them in the `-devel-AP` branch.
 
 This project aims to control a Yaskawa HC10 robot through ROS. A `motoman_hc10_moveit_config` package was created for the planning and execution of trajectories. Also, a solution to exploit the robot's collabotive functionalities was developped. This solution involves reading sensor data through I/O access.
 
@@ -16,14 +17,14 @@ sudo apt install ros-melodic-industrial-core ros-melodic-moveit
 ```
 We assume a [Catkin workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace) has already been created. If not, please follow the instructions for creating one.
 
-Follow the next steps in order to build the `-devel-AP` branch on a **ROS Melodic** system:
+Follow the next steps in order to build the `-v2021` branch on a **ROS Melodic** system:
 
 ```bash
 # change to the src folder of the Catkin workspace
 cd ~/catkin_ws/src
 
-# retrieve the devel-AP branch
-git clone -b devel-AP https://github.com/aip-primeca-occitanie/ros_yaskawa_hc10.git
+# retrieve the v2021 branch
+git clone -b v2021 https://github.com/aip-primeca-occitanie/ros_yaskawa_hc10.git
 
 # change to the root of the Catkin workspace
 cd ~/catkin_ws/
