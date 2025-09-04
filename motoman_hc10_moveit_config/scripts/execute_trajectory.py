@@ -43,9 +43,11 @@ trajectory = JointTrajectory()
 trajectory.joint_names = ["joint_1_s","joint_2_l","joint_3_u","joint_4_r","joint_5_b","joint_6_t"]
 
 
+#TODO: clean this file
+#TODO: get trajectory file path from user input
+traj_file_path = '../trajectories/trajectory.csv'
 
-
-with open('/home/felix/Desktop/SAE_IUT/trajectory.csv') as csv_file:
+with open(traj_file_path) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 1
     Ts = 0.1

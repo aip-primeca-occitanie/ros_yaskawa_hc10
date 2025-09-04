@@ -32,14 +32,23 @@ def moveJ(qi,qf,tf,Te):
         else :
             q = np.vstack((q,b))
     return q
-qi=[0.4419472813606262, 0.13577520847320557, 1.0137178897857666, -0.7563529014587402, -0.2653222978115082, 0.03390097618103027]
-qf = np.copy(qi)
-qf[0] = qf[0]+0.34 
-q = moveJ(qi,qf,5,0.1)
-print (q)
 
-with open('/home/felix/catkin_ws_mm2/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/trajectory.csv','w') as csv_file:
-    csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    for i in range(len(q)):
-    	csv_writer.writerow(q[i])
 
+if __name__=="__main__":
+
+    # Compute the trajectory
+    qi=[0.4419472813606262, 0.13577520847320557, 1.0137178897857666, -0.7563529014587402, -0.2653222978115082, 0.03390097618103027]
+    qf = np.copy(qi)
+    qf[0] = qf[0]+0.34
+    q = moveJ(qi,qf,5,0.1)
+    print (q)
+
+    #TODO: get trajectory file path from user input
+    traj_file_path = '../trajectories/trajectory.csv'
+    # Write the trajectory
+    with open(traj_file_path,'w') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        for i in range(len(q)):
+            csv_writer.writerow(q[i])
+
+    print("Trajectory written to file.")
