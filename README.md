@@ -1,102 +1,89 @@
-# Motoman
+# ros_yaskawa_hc10
+Pilotage d'un robot collaboratif HC10 /Control of an HC10 collaborative robot
 
-[![Build Status: ROS buildfarm](http://build.ros.org/job/Kdev__motoman__ubuntu_xenial_amd64/badge/icon)](http://build.ros.org/job/Kdev__motoman__ubuntu_xenial_amd64)
-[![Build Status: Travis CI](https://travis-ci.com/ros-industrial/motoman.svg?branch=kinetic-devel)](https://travis-ci.com/ros-industrial/motoman)
-
-[![license - apache 2.0](https://img.shields.io/:license-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
-[![license - bsd 3 clause](https://img.shields.io/:license-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-
-[![support level: consortium / vendor](https://img.shields.io/badge/support%20level-consortium%20/%20vendor-brightgreen.png)](http://rosindustrial.org/news/2016/10/7/better-supporting-a-growing-ros-industrial-software-platform)
-
-
-[ROS-Industrial][] Motoman metapackage. See the [ROS wiki][] page for more information.
-
-The [motoman_experimental][] repository contains additional packages.
-
+*Auteure: Andrea Melissa Pérez Peña - Github ID: andreaPP9*
 
 ## Contents
+This is a fork made from the motoman_driver repository. Only the packages related to the motoman HC10 robot were kept since it is the model being used at the AIP.
+You can find all of them in the `-devel-AP` branch.
 
-Branch naming follows the ROS distribution they are compatible with. `-devel` branches may be unstable. Releases are made from the distribution branches (`indigo`, `kinetic`).
+This project aims to control a Yaskawa HC10 robot through ROS. A `motoman_hc10_moveit_config` package was created for the planning and execution of trajectories. Also, a solution to exploit the robot's collabotive functionalities was developped. This solution involves reading sensor data through I/O access.
 
-Older releases may be found in the Github mirror of the old ROS-Industrial [subversion repository][].
+## How to build
+This repository has been successfully built on Ubuntu Bionic/ROS Melodic. It depends on the `industrial_core`and `move-it`repository, so you may need to install the binaries and dependencies associated using:
+```bash
+sudo apt install ros-melodic-industrial-core ros-melodic-moveit 
+```
+We assume a [Catkin workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace) has already been created. If not, please follow the instructions for creating one.
 
-
-## ROS Distro Support
-
-|         | Kinetic |
-|:-------:|:-------:|
-| Branch  | [`kinetic-devel`](https://github.com/ros-industrial/motoman/tree/kinetic-devel) |
-| Status  | supported |
-| Version | [version](http://repositories.ros.org/status_page/ros_kinetic_default.html?q=motoman) |
-
-
-## ROS Buildfarm
-
-|         |  Kinetic Source  |  Kinetic Debian  |
-|:-------:|:----------------:|:-----------------|
-| motoman | [![not released](http://build.ros.org/buildStatus/icon?job=Ksrc_uX__motoman__ubuntu_xenial__source)](http://build.ros.org/view/Ksrc_uX/job/Ksrc_uX__motoman__ubuntu_xenial__source/) | [![not released](http://build.ros.org/buildStatus/icon?job=Kbin_uX64__motoman__ubuntu_xenial_amd64__binary)](http://build.ros.org/view/Kbin_uX64/job/Kbin_uX64__motoman__ubuntu_xenial_amd64__binary/) |
-
-
-## Building
-
-### On newer (or older) versions of ROS
-
-Building the packages on newer (or older) versions of ROS is in most cases possible and supported. For example: building the packages in this repository on Ubuntu Xenial/ROS Kinetic or Ubuntu Bionic/ROS Melodic systems is supported. This will require creating a Catkin workspace, cloning this repository, installing all required dependencies and finally building the workspace.
-
-### Catkin tools
-
-It is recommended to use [catkin_tools][] instead of the default [catkin][] when building ROS workspaces. `catkin_tools` provides a number of benefits over regular `catkin_make` and will be used in the instructions below. All packages can be built using `catkin_make` however: use `catkin_make` in place of `catkin build` where appropriate.
-
-### Building the packages
-
-The following instructions assume that a [Catkin workspace][] has been created at `$HOME/catkin_ws` and that the *source space* is at `$HOME/catkin_ws/src`. Update paths appropriately if they are different on the build machine.
-
-These instructions build the `kinetic-devel` branch on a ROS Kinetic system:
+Follow the next steps in order to build the `-devel-AP` branch on a **ROS Melodic** system:
 
 ```bash
+# change to the src folder of the Catkin workspace
+cd ~/catkin_ws/src
+
+# retrieve the devel-AP branch
+git clone -b devel-AP https://github.com/aip-primeca-occitanie/ros_yaskawa_hc10.git
+
 # change to the root of the Catkin workspace
-$ cd $HOME/catkin_ws
+cd ~/catkin_ws/
 
-# retrieve the latest development version of motoman. If you'd rather
-# use the latest released version, replace 'kinetic-devel' with 'kinetic'
-$ git clone -b kinetic-devel https://github.com/ros-industrial/motoman.git src/motoman
-
-# check build dependencies. Note: this may install additional packages,
-# depending on the software installed on the machine
-$ rosdep update
-
-# be sure to change 'kinetic' to whichever ROS release you are using
-$ rosdep install --from-paths src/ --ignore-src --rosdistro kinetic
-
-# build the workspace (using catkin_tools)
-$ catkin build
+# build the workspace
+catkin_make
+```
+## Activating the workspace
+If you are working with multiple workspaces activate the new one with :
+```bash
+source ~/catkin_ws/devel/setup.bash
+```
+If you are working with one workspace only, you can use:
+```bash
+echo "source  ~/catkin_ws/devel/setup.bash"  >>  ~/.bashrc 
+source ~/.bashrc 
 ```
 
-### Activating the workspace
+## Planning and Execution with MoveIt!
+### To simulate the robot:
+```bash
+roslaunch motoman_hc10_moveit_config moveit_planning_execution.launch 
+```
+### To connect to the real robot:
+```bash
+# By default, sim:=True. If needed you can also modify the robot_ip address.
+roslaunch motoman_hc10_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.1.40 controller:=yrc1000
+```
+Make sure the robot is able to receive commands by setting the **Teach pendant** to `Remote Mode` and running in another terminal:
+```bash
+#Activate your workspace in every new terminal
+source ~/catkin_ws/devel/setup.bash
+# Enabling ROS commands
+rosservice call /robot_enable
+```
+Now, you can start controlling your robot with Moveit!
 
-Finally, activate the workspace to get access to the packages just built:
+**Note:** In order to ***disable*** ROS commands you must run:
 
 ```bash
-$ source $HOME/catkin_ws/devel/setup.bash
+# Disabling ROS commands
+rosservice call /robot_disable
 ```
 
-At this point all packages should be usable (ie: `roslaunch` should be able to auto-complete package names starting with `motoman_..`). In case the workspace contains additional packages (ie: not from this repository), those should also still be available.
+### Example 
+The `execute_trajectroy.py` script in the `motoman_hc10_moveit_config` package, plans and executes trajectories to predefined configurations (defined in the srdf file which is placed on the `config` folder). For the robot to move you must uncomment the required lines in the script and then run in another terminal:
 
+```bash
+source ~/catkin_ws/devel/setup.bash
+# The function '.go' is blocking, trajectory execution will only stop after reaching the target
+rosrun motoman_hc10_moveit_config execute_trajectory.py
+```
+**Note:** Make sure to always check the planned path before executing any trajectory and add any new obstacles to the `add_interferences.py` script if need be.
 
-## Installation and usage
+## Reading the sensor registers
 
-Refer to [Working With ROS-Industrial Robot Support Packages][] for information on how to use the files provided by the robot support and MoveIt configuration packages. See also the other pages on the [ROS wiki][].
+The ROS-Industrial Simple Message protocol does not have an ID (yet) for sending and receiving effort data. Even so, we can acces this information by reading some of the controller registers. For this purpose, we use the Motoman specific IDs [REP-I0004](https://github.com/ros-industrial/rep/blob/master/rep-I0004.rst). Please, check the documentation on this repository to understand how this can be done from a ROS perspective as well as a controller perspective.
 
-Refer to the [tutorials][] for information on installation and configuration of the controller-specific software components.
+By default, some registers are already being read. You can disable this option by commenting the call to the `io_relay` node in the `robot_interface_streaming.launch` file of the `motoman_driver` package.
 
+Otherwise, you can see the data being published with the **rqt_console**. Check the `/joint_effort` , `/joint_vitesse`, `/joint_position` topics.
 
-
-[ROS-Industrial]: http://wiki.ros.org/Industrial
-[ROS wiki]: http://wiki.ros.org/motoman
-[motoman_experimental]: https://github.com/ros-industrial/motoman_experimental
-[subversion repository]: https://github.com/ros-industrial/swri-ros-pkg
-[Catkin workspace]: http://wiki.ros.org/catkin/Tutorials/create_a_workspace
-[catkin]: http://wiki.ros.org/catkin
-[catkin_tools]: https://catkin-tools.readthedocs.io/en/latest
-[Working With ROS-Industrial Robot Support Packages]: http://wiki.ros.org/Industrial/Tutorials/WorkingWithRosIndustrialRobotSupportPackages
-[tutorials]: http://wiki.ros.org/motoman_driver/Tutorials
+***Note:*** *The addresses being read using ROS must match the addresses defined on the controller side. These addresses may change depending on the robot controller. So, refer also to the Yaskawa Motoman documentation on IO addressing and configuration.*
