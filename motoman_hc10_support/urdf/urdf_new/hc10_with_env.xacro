@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+<robot name="yaskawa_1" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- loading urdf -->
+    <xacro:include filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/urdf/urdf_new/materials.xacro" />
+    <xacro:include filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/urdf/urdf_new/hc10dt_b10.xacro" />
+    <xacro:include filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/urdf/urdf_new/table.xacro" />
+    <xacro:include filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/urdf/urdf_new/cell.xacro" />
+    <xacro:include filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/urdf/urdf_new/pince.xacro" />
+    <!-- linking robot to world,workspaces and end-effector -->
+    <link name="world" />
+
+    <joint name="world_cell" type="fixed">
+        <origin rpy="0 0 -1.57079" xyz="0.72 0.27 0.698"/>
+        <parent link="world" />
+        <child link="pieds_cellule_link" />
+    </joint>
+
+    <joint name="world_table" type="fixed">
+        <origin rpy="1.57079 0 0" xyz="0 0 0.432"/>
+        <parent link="world" />
+        <child link="table_link" />
+    </joint>
+
+    <joint name="table_yaska1" type="fixed">
+        <origin rpy="-1.57079 1.57079 0" xyz="0.171 0.203 0.181" />
+        <parent link="table_link" />
+        <child link="yaska1_base_link" />
+    </joint>
+
+    <joint name="tool_adaptater" type="fixed">
+        <origin rpy="-1.57079 0 -1.57079" xyz="0 0 0" />
+        <parent link="yaska1_tool0" />
+        <child link="adaptater_plate_link" />
+    </joint>
+
+</robot>
