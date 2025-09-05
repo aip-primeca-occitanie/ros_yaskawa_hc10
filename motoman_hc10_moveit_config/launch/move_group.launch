@@ -60,6 +60,8 @@
     <arg name="moveit_sensor_manager" value="motoman_hc10" />
   </include>
 
+  <rosparam ns="move_group" file="$(find motoman_hc10_moveit_config)/config/simple_moveit_controllers.yaml"/>
+
   <!-- Start the actual move_group node/action server -->
   <node name="move_group" launch-prefix="$(arg launch_prefix)" pkg="moveit_ros_move_group" type="move_group" respawn="false" output="screen" args="$(arg command_args)">
     <!-- Set the display variable, in case OpenGL code is used internally -->
