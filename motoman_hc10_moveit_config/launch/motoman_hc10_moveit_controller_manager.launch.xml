@@ -6,5 +6,5 @@
   <param name="moveit_controller_manager" value="$(arg moveit_controller_manager)"/>
 
   <!-- loads ros_controllers to the param server -->
-  <rosparam file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/ros_controllers.yaml"/>
+  <rosparam file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/ros_controllers.yaml"/>
 </launch>

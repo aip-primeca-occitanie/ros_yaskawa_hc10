@@ -8,7 +8,7 @@
            controller_joint_names: [joint_1, joint_2, ... joint_N] 
        - Update with joint names for your robot (in order expected by rbt controller)
        - and uncomment the following line: -->
-  <rosparam command="load" file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/joint_names.yaml"/>
+  <rosparam command="load" file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/joint_names.yaml"/>
  
   <!-- the "sim" argument controls whether we connect to a Simulated or Real robot -->
   <!--  - if sim=false, a robot_ip argument is required -->
@@ -18,7 +18,7 @@
   <arg name="controller" default="yrc1000" unless="$(arg sim)" /> 
  
   <!-- load the robot_description parameter before launching ROS-I nodes -->
-  <include file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/planning_context.launch" >
+  <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/planning_context.launch" >
     <arg name="load_robot_description" value="true" />
   </include>
 
@@ -31,7 +31,7 @@
   <!--   - this typically includes: robot_state, motion_interface, and joint_trajectory_action nodes -->
   <!--   - replace these calls with appropriate robot-specific calls or launch files -->
   <group unless="$(arg sim)">
-    <include file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/launch/robot_interface_streaming_hc10.launch" >
+    <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/launch/robot_interface_streaming_hc10.launch" >
       <arg name="robot_ip" value="$(arg robot_ip)"/>
       <arg name="controller" value="$(arg controller)"/>
     </include>
@@ -41,10 +41,10 @@
   <!-- publish the robot state (tf transforms) -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
-  <include file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/move_group.launch">    <arg name="publish_monitored_planning_scene" value="true" />
+  <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/move_group.launch">    <arg name="publish_monitored_planning_scene" value="true" />
   </include>
 
-  <include file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/moveit_rviz.launch">
+  <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/moveit_rviz.launch">
     <arg name="config" value="true"/>
   </include>
 
@@ -52,6 +52,6 @@
   <!--node name="add_interferences" pkg="motoman_hc10_moveit_config" type="add_interferences.py" /-->
   
 <!--  
-  <include file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/default_warehouse_db.launch" />
+  <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/default_warehouse_db.launch" />
 -->
 </launch>

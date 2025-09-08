@@ -15,6 +15,6 @@
 
   <!-- Load the robot specific controller manager; this sets the moveit_controller_manager ROS parameter -->
   <arg name="moveit_controller_manager" default="motoman_hc10" />
-  <include file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/$(arg moveit_controller_manager)_moveit_controller_manager.launch.xml" />
+  <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/$(arg moveit_controller_manager)_moveit_controller_manager.launch.xml" />
 
 </launch>

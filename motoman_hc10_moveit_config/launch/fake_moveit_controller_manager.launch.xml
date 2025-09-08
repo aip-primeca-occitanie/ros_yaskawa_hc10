@@ -4,6 +4,6 @@
   <param name="moveit_controller_manager" value="moveit_fake_controller_manager/MoveItFakeControllerManager"/>
 
   <!-- The rest of the params are specific to this plugin -->
-  <rosparam file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/fake_controllers.yaml"/>
+  <rosparam file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/fake_controllers.yaml"/>
 
 </launch>

@@ -16,5 +16,5 @@
    <param name="request_adapters" value="$(arg planning_adapters)" />
    <param name="start_state_max_bounds_error" value="$(arg start_state_max_bounds_error)" />
 
-   <rosparam command="load" file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/chomp_planning.yaml" />
+   <rosparam command="load" file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/chomp_planning.yaml" />
 </launch>

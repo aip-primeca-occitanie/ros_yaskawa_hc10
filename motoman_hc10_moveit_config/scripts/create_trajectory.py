@@ -38,7 +38,7 @@ qf[0] = qf[0]+0.34
 q = moveJ(qi,qf,5,0.1)
 print (q)
 
-with open('/home/felix/catkin_ws_mm2/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/trajectory.csv','w') as csv_file:
+with open('/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/trajectory.csv','w') as csv_file:
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     for i in range(len(q)):
     	csv_writer.writerow(q[i])

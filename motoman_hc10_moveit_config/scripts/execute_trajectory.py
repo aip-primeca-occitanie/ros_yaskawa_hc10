@@ -45,7 +45,7 @@ trajectory.joint_names = ["joint_1_s","joint_2_l","joint_3_u","joint_4_r","joint
 
 
 
-with open('/home/felix/Desktop/SAE_IUT/trajectory.csv') as csv_file:
+with open('/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/trajectory.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 1
     Ts = 0.1
