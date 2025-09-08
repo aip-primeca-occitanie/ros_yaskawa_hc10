@@ -1,5 +1,5 @@
 <launch>
-  <include file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/launch/load_hc10.launch" />
+  <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/launch/load_hc10.launch" />
   <param name="use_gui" value="true" />
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />

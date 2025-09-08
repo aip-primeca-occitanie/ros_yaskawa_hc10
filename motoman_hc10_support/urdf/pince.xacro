@@ -5,52 +5,52 @@
     <link name="adaptater_plate_link">
       <visual>
         <geometry>
-          <mesh filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/LWR50F-17-04-A.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/LWR50F-17-04-A.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="dark_gray"/>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/LWR50F-17-04-A.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/LWR50F-17-04-A.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>  
     <link name="end_effector_link">
       <visual>
         <geometry>
-          <mesh filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/end_effector_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/end_effector_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="white_smoke"/>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/end_effector_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/end_effector_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>  
     <link name="mors_link1">
         <visual>
           <geometry>
-            <mesh filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/mors_for_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/mors_for_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
           </geometry>
           <material name="silver"/>
         </visual>
         <collision>
           <geometry>
-            <mesh filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/mors_for_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/mors_for_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
           </geometry>
         </collision>
       </link>
       <link name="mors_link2">
         <visual>
           <geometry>
-            <mesh filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/mors_for_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/mors_for_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
           </geometry>
           <material name="silver"/>
         </visual>
         <collision>
           <geometry>
-            <mesh filename="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/mors_for_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hand/mors_for_LWR50L-03-00001-A.stl" scale="0.001 0.001 0.001"/>
           </geometry>
         </collision>
       </link>

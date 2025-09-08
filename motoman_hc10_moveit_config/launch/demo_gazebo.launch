@@ -8,8 +8,8 @@
   <!-- By default, we are not in debug mode -->
   <arg name="debug" default="false" />
 
-  <!-- By default, we won't load or override the robot_description -->
-  <arg name="load_robot_description" default="false"/>
+  <!-- By default, we will load or override the robot_description -->
+  <arg name="load_robot_description" default="true"/>
 
   <!--
   By default, hide joint_state_publisher's GUI
@@ -25,13 +25,14 @@
   <arg name="gazebo_gui" default="true"/>
   <arg name="paused" default="false"/>
   <!-- By default, use the urdf location provided from the package -->
-  <arg name="urdf_path" default="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/urdf/hc10.xacro"/>
+  <!-- <arg name="urdf_path" default="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/urdf/hc10.urdf"/> -->
 
   <!-- launch the gazebo simulator and spawn the robot -->
   <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/gazebo.launch" >
     <arg name="paused" value="$(arg paused)"/>
     <arg name="gazebo_gui" value="$(arg gazebo_gui)"/>
-    <arg name="urdf_path" value="$(arg urdf_path)"/>
+    <!-- <arg name="urdf_path" value="$(arg urdf_path)"/> -->
+    <arg name="load_robot_description" value="false"/>
   </include>
 
   <!-- If needed, broadcast static tf for robot root -->
@@ -61,7 +62,8 @@
 
   <!-- Run Rviz and load the default config to see the state of the move_group node -->
   <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/moveit_rviz.launch">
-    <arg name="rviz_config" value="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/moveit.rviz"/>
+    <!-- <arg name="rviz_config" value="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/launch/moveit.rviz"/> -->
+    <arg name="config" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
   </include>
 

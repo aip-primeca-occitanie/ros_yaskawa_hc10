@@ -26,7 +26,7 @@ rospy.Subscriber("joint_states", JointState, callback)
 while not rospy.is_shutdown():
 	rospy.spin()
 
-with open('/home/felix/Desktop/SAE_IUT/joint_positions.csv','w') as csv_file:
+with open('/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/config/joint_positions.csv','w') as csv_file:
     writer = csv.writer(csv_file)
     for line in joint_positions_all:
         writer.writerow(line)

@@ -16,13 +16,13 @@
     <link name="base_link">
         <visual>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/base_link.dae" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/base_link.dae" />
             </geometry>
             <material name="yaskawa_blue" />
         </visual>
         <collision>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/base_link.stl" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/base_link.stl" />
             </geometry>
         </collision>
         <inertial>
@@ -34,13 +34,13 @@
     <link name="link_1_s">
         <visual>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_1_s.dae" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_1_s.dae" />
             </geometry>
             <material name="yaskawa_blue" />
         </visual>
         <collision>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_1_s.stl" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_1_s.stl" />
             </geometry>
         </collision>
         <inertial>
@@ -52,7 +52,7 @@
     <link name="link_2_l">
         <visual>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_2_l.dae" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_2_l.dae" />
             </geometry>
             <material name="yaskawa_blue" />
         </visual>
@@ -70,13 +70,13 @@
     <link name="link_3_u">
         <visual>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_3_u.dae" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_3_u.dae" />
             </geometry>
             <material name="yaskawa_blue" />
         </visual>
         <collision>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_3_u.stl" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_3_u.stl" />
             </geometry>
         </collision>
         <inertial>
@@ -88,13 +88,13 @@
     <link name="link_4_r">
         <visual>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_4_r.dae" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_4_r.dae" />
             </geometry>
             <material name="yaskawa_blue" />
         </visual>
         <collision>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_4_r.stl" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_4_r.stl" />
             </geometry>
         </collision>
         <inertial>
@@ -106,13 +106,13 @@
     <link name="link_5_b">
         <visual>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_5_b.dae" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_5_b.dae" />
             </geometry>
             <material name="yaskawa_blue" />
         </visual>
         <collision>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_5_b.stl" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_5_b.stl" />
             </geometry>
         </collision>
         <inertial>
@@ -124,13 +124,13 @@
     <link name="link_6_t">
         <visual>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_6_t.dae" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/visual/link_6_t.dae" />
             </geometry>
             <material name="yaskawa_blue" />
         </visual>
         <collision>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_6_t.stl" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_6_t.stl" />
             </geometry>
         </collision>
         <inertial>

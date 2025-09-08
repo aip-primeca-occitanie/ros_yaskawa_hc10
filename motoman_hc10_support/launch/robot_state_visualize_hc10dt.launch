@@ -13,16 +13,16 @@
   <!-- controller: Controller name (yrc1000) -->
   <arg name="controller" />
 
-  <rosparam command="load" file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/config/joint_names_hc10dt.yaml" />
+  <rosparam command="load" file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/config/joint_names_hc10dt.yaml" />
 
-  <include file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_driver/launch/robot_state_$(arg controller).launch">
+  <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_driver/launch/robot_state_$(arg controller).launch">
     <arg name="robot_ip" value="$(arg robot_ip)" />
   </include>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" 
     type="robot_state_publisher" />
 
-  <include file="/home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/launch/load_hc10dt.launch" />
+  <include file="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/launch/load_hc10dt.launch" />
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find industrial_robot_client)/config/robot_state_visualize.rviz" required="true" />
 </launch>

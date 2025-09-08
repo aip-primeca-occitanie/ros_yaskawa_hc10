@@ -5,14 +5,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/env/table_yaskawa.stl" scale="1 1 1"/>
+        <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/env/table_yaskawa.stl" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/env/table_yaskawa.stl" scale="1 1 1"/>
+        <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/env/table_yaskawa.stl" scale="1 1 1"/>
       </geometry>
     </collision>
   </link>

@@ -76,7 +76,7 @@
         </visual>
         <collision>
             <geometry>
-                <mesh filename="home/felix/catkin_ws_mm/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_3_u.stl" />
+                <mesh filename="home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_support/meshes/hc10/collision/link_3_u.stl" />
             </geometry>
         </collision>
         <inertial>

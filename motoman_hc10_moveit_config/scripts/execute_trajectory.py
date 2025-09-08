@@ -32,7 +32,7 @@ def is_current_init(initial_position):
 
 robot = moveit_commander.RobotCommander()
 scene = moveit_commander.PlanningSceneInterface()
-group = moveit_commander.MoveGroupCommander("manipulator")
+group = moveit_commander.MoveGroupCommander("DN2P1")
 display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
                                                moveit_msgs.msg.DisplayTrajectory,
                                                queue_size=20)
