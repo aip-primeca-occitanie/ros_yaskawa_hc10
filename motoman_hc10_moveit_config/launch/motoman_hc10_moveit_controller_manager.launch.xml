@@ -6,9 +6,9 @@
   <param name="moveit_controller_manager" value="$(arg moveit_controller_manager)"/>
 
   <!-- loads ros_controllers to the param server -->
-  <!-- <rosparam file="$(find motoman_hc10_moveit_config)/config/ros_controllers.yaml"/> -->
+  <rosparam file="$(find motoman_hc10_moveit_config)/config/ros_controllers.yaml"/>
 
   <!-- Controllers -->
-  <include ns="move_group" file="$(find motoman_hc10_moveit_config)/launch/ros_controllers.launch" />
+  <!-- <include ns="move_group" file="$(find motoman_hc10_moveit_config)/launch/ros_controllers.launch" /> -->
 
 </launch>

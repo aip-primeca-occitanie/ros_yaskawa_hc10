@@ -18,6 +18,7 @@
   <arg name="max_safe_path_cost" default="1"/>
   <arg name="jiggle_fraction" default="0.05" />
   <arg name="publish_monitored_planning_scene" default="true"/>
+  <arg name="sim" default="true" />
 
   <arg name="capabilities" default=""/>
   <arg name="disable_capabilities" default=""/>
@@ -59,8 +60,6 @@
   <include ns="move_group" file="$(find motoman_hc10_moveit_config)/launch/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
     <arg name="moveit_sensor_manager" value="motoman_hc10" />
   </include>
-
-  <rosparam ns="move_group" file="$(find motoman_hc10_moveit_config)/config/simple_moveit_controllers.yaml"/>
 
   <!-- Start the actual move_group node/action server -->
   <node name="move_group" launch-prefix="$(arg launch_prefix)" pkg="moveit_ros_move_group" type="move_group" respawn="false" output="screen" args="$(arg command_args)">

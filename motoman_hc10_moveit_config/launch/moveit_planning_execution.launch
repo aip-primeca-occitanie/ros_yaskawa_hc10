@@ -35,14 +35,17 @@
       <arg name="robot_ip" value="$(arg robot_ip)"/>
       <arg name="controller" value="$(arg controller)"/>
     </include>
-    
   </group>
 
   <!-- publish the robot state (tf transforms) -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
+  <rosparam if="$(arg sim)" ns="move_group" file="$(find motoman_hc10_moveit_config)/config/controllers.yaml"/>
+  <rosparam unless="$(arg sim)" ns="move_group" file="$(find motoman_hc10_moveit_config)/config/simple_moveit_controllers.yaml"/>
+
   <include file="$(find motoman_hc10_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
+    <arg name="sim" value="$(arg sim)" />
     <!-- <arg name="fake_execution" value="$(arg sim)"/> -->
   </include>
 
