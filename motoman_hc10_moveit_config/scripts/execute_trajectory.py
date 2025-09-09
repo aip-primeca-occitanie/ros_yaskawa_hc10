@@ -2,20 +2,18 @@
 from os import wait
 import sys
 import argparse
-import copy
 import rospy
 import moveit_commander
 import moveit_msgs.msg
-import geometry_msgs.msg
 import csv
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 
 class TrajectoryExecutor():
-    def __init__(self):
+    def __init__(self, argv):
         self.current_joint_position = [0,0,0,0,0,0]
-        moveit_commander.roscpp_initialize(sys.argv)
+        moveit_commander.roscpp_initialize(argv)
         rospy.init_node('execute_trajectory',anonymous=True)
 
         rospy.Subscriber("joint_states", JointState, self.callback)
@@ -120,7 +118,7 @@ if __name__ == "__main__":
     # parse command line arguments to get path file
     parser = argparse.ArgumentParser()
     parser.add_argument("--filename")
-    args = parser.parse_args()
+    known_args, remaining_args = parser.parse_known_args()
 
-    trajExecutor = TrajectoryExecutor()
-    trajExecutor.execute_trajectory(filename=args.filename)
+    trajExecutor = TrajectoryExecutor(remaining_args)
+    trajExecutor.execute_trajectory(filename=known_args.filename)
