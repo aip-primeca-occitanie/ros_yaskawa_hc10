@@ -40,7 +40,7 @@ display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path
                                                
                                                
 trajectory = JointTrajectory()
-trajectory.joint_names = ["joint_1_s","joint_2_l","joint_3_u","joint_4_r","joint_5_b","joint_6_t"]
+trajectory.joint_names = ["yaska1_joint_1_s","yaska1_joint_2_l","yaska1_joint_3_u","yaska1_joint_4_r","yaska1_joint_5_b","yaska1_joint_6_t"]
 
 
 #TODO: clean this file
@@ -65,7 +65,7 @@ initial_position = trajectory.points[0].positions
 init_ok = is_current_init(initial_position) # is the first point of the trajectory (almost) equal tu current point?
 print (initial_position)
 if (init_ok == False):
-    print("Fisrt going to initial position via moveit")
+    print("First going to initial position via moveit")
     group.set_joint_value_target(initial_position)
     group.go(wait=True) #Blocking call, same as "group.move()" for roscpp
     group.stop()
