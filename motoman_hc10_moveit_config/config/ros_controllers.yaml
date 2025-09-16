@@ -1,44 +1,44 @@
 DN2P1_controller:
   type: effort_controllers/JointTrajectoryController
   joints:
-    - yaska1_joint_1_s
-    - yaska1_joint_2_l
-    - yaska1_joint_3_u
-    - yaska1_joint_4_r
-    - yaska1_joint_5_b
-    - yaska1_joint_6_t
+  - joint_1_s
+  - joint_2_l
+  - joint_3_u
+  - joint_4_r
+  - joint_5_b
+  - joint_6_t
   gains:
-    yaska1_joint_1_s:
+    joint_1_s:
       p: 100
       d: 1
       i: 1
       i_clamp: 1
-    yaska1_joint_2_l:
+    joint_2_l:
       p: 100
       d: 1
       i: 1
       i_clamp: 1
-    yaska1_joint_3_u:
+    joint_3_u:
       p: 100
       d: 1
       i: 1
       i_clamp: 1
-    yaska1_joint_4_r:
+    joint_4_r:
       p: 100
       d: 1
       i: 1
       i_clamp: 1
-    yaska1_joint_5_b:
+    joint_5_b:
       p: 100
       d: 1
       i: 1
       i_clamp: 1
-    yaska1_joint_6_t:
+    joint_6_t:
       p: 100
       d: 1
       i: 1
       i_clamp: 1
-yaskawa1_hand_controller:
+hand_controller:
   type: effort_controllers/JointTrajectoryController
   joints:
     - end_effector_adaptater_mors2

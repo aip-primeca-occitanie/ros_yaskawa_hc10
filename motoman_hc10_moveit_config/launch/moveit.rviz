@@ -146,42 +146,42 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
-          yaska1_base_link:
+          base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_1_s:
+          link_1_s:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_2_l:
+          link_2_l:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_3_u:
+          link_3_u:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_4_r:
+          link_4_r:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_5_b:
+          link_5_b:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_6_t:
+          link_6_t:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_tool0:
+          tool0:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -305,42 +305,42 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
-          yaska1_base_link:
+          base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_1_s:
+          link_1_s:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_2_l:
+          link_2_l:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_3_u:
+          link_3_u:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_4_r:
+          link_4_r:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_5_b:
+          link_5_b:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_link_6_t:
+          link_6_t:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          yaska1_tool0:
+          tool0:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -353,7 +353,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: yaska1_base_link
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:

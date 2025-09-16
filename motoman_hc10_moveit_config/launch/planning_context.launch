@@ -5,11 +5,20 @@
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>
 
+  <!-- Wether we work with the left or right robot (when entering the room)  -->
+  <arg name="left_robot" default="True" />
+
   <!-- Load universal robot description format (URDF) -->
-  <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="xacro --inorder '$(find motoman_hc10_moveit_config)/urdf/hc10_with_env.xacro'"/>
+  <group if="$(arg load_robot_description)">
+    <param if="$(arg left_robot)" name="$(arg robot_description)"
+      command="xacro --inorder '$(find motoman_hc10_moveit_config)/urdf/hc10_with_env_LEFT.xacro'" />
+    <param unless="$(arg left_robot)" name="$(arg robot_description)"
+      command="xacro --inorder '$(find motoman_hc10_moveit_config)/urdf/hc10_with_env_RIGHT.xacro'" />
+  </group>
 
   <!-- The semantic description that corresponds to the URDF -->
-  <param name="$(arg robot_description)_semantic" textfile="$(find motoman_hc10_moveit_config)/config/yaskawa_1.srdf" />
+  <param if="$(arg left_robot)" name="$(arg robot_description)_semantic" textfile="$(find motoman_hc10_moveit_config)/config/yaskawa_LEFT.srdf" />
+  <param unless="$(arg left_robot)" name="$(arg robot_description)_semantic" textfile="$(find motoman_hc10_moveit_config)/config/yaskawa_RIGHT.srdf" />
 
   <!-- Load updated joint limits (override information from URDF) -->
   <group ns="$(arg robot_description)_planning">

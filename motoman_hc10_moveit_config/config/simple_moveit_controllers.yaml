@@ -4,13 +4,13 @@ controller_list:
     type: FollowJointTrajectory
     default: True
     joints:
-      - yaska1_joint_1_s
-      - yaska1_joint_2_l
-      - yaska1_joint_3_u
-      - yaska1_joint_4_r
-      - yaska1_joint_5_b
-      - yaska1_joint_6_t
-  - name: yaskawa1_hand_controller
+      - joint_1_s
+      - joint_2_l
+      - joint_3_u
+      - joint_4_r
+      - joint_5_b
+      - joint_6_t
+  - name: hand_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     default: True

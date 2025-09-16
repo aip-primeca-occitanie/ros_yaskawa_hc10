@@ -2,13 +2,13 @@ controller_list:
   - name: fake_DN2P1_controller
     type: $(arg fake_execution_type)
     joints:
-      - yaska1_joint_1_s
-      - yaska1_joint_2_l
-      - yaska1_joint_3_u
-      - yaska1_joint_4_r
-      - yaska1_joint_5_b
-      - yaska1_joint_6_t
-  - name: fake_yaskawa1_hand_controller
+      - $(arg robot_prefix)joint_1_s
+      - $(arg robot_prefix)joint_2_l
+      - $(arg robot_prefix)joint_3_u
+      - $(arg robot_prefix)joint_4_r
+      - $(arg robot_prefix)joint_5_b
+      - $(arg robot_prefix)joint_6_t
+  - name: fake_hand_controller
     type: $(arg fake_execution_type)
     joints:
       - end_effector_adaptater_mors2
@@ -16,5 +16,5 @@ controller_list:
 initial:  # Define initial robot poses per group
   - group: DN2P1
     pose: home
-  - group: yaskawa1_hand
+  - group: hand_group
     pose: Open
