@@ -38,7 +38,7 @@
     <!--   - this typically includes: robot_state, motion_interface, and joint_trajectory_action nodes -->
     <!--   - replace these calls with appropriate robot-specific calls or launch files -->
     <group unless="$(arg sim)">
-      <include file="$(find motoman_hc10_moveit_config)/launch/robot_interface_streaming_hc10.launch" >
+      <include file="$(find motoman_hc10_support)/launch/robot_interface_streaming_hc10.launch" >
         <arg name="robot_ip" value="$(arg robot_ip)"/>
         <arg name="controller" value="$(arg controller)"/>
       </include>
@@ -54,6 +54,7 @@
       <arg name="publish_monitored_planning_scene" value="true" />
       <arg name="sim" value="$(arg sim)" />
       <arg name="planning_context_already_loaded" value="true" />
+      <arg name="left_robot" value="$(arg left_robot)" />
       <!-- <arg name="fake_execution" value="$(arg sim)"/> -->
     </include>
 

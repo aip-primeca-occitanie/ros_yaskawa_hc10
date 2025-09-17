@@ -4,11 +4,10 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /Status1
         - /MotionPlanning1
+        - /RobotModel1/Status1
       Splitter Ratio: 0.7425600290298462
-    Tree Height: 287
+    Tree Height: 258
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -44,6 +43,7 @@ Visualization Manager:
     - Acceleration_Scaling_Factor: 0.1
       Class: moveit_rviz_plugin/MotionPlanning
       Enabled: true
+      JointsTab_Use_Radians: false
       Move Group Namespace: ""
       MoveIt_Allow_Approximate_IK: false
       MoveIt_Allow_External_Program: false
@@ -72,22 +72,16 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          adaptater_mors1_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          adaptater_mors2_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           adaptater_plate_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          cylinder_link:
+          base:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -103,6 +97,40 @@ Visualization Manager:
             Show Trail: false
             Value: true
           ergots2_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          flange:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          link_1_s:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_2_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_3_u:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_4_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_5_b:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_6_t:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -142,46 +170,11 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          world:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_1_s:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_2_l:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_3_u:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_4_r:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_5_b:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_6_t:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           tool0:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          world:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -231,22 +224,16 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          adaptater_mors1_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          adaptater_mors2_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           adaptater_plate_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          cylinder_link:
+          base:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -262,6 +249,40 @@ Visualization Manager:
             Show Trail: false
             Value: true
           ergots2_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          flange:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          link_1_s:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_2_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_3_u:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_4_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_5_b:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          link_6_t:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -301,46 +322,11 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          world:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_1_s:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_2_l:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_3_u:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_4_r:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_5_b:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          link_6_t:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           tool0:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          world:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -349,6 +335,128 @@ Visualization Manager:
         Show Robot Visual: true
       Value: true
       Velocity_Scaling_Factor: 0.1
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        adaptater_plate_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        end_effector_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ergots1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ergots2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        flange:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        link_1_s:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_2_l:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_3_u:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_4_r:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_5_b:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_6_t:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        mors_link1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        mors_link2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        pieds_cellule_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rail_milieu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rail_tournant1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rail_tournant2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        table_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tool0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+      Name: RobotModel
+      Robot Description: robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -365,7 +473,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.996500015258789
+      Distance: 3.433871030807495
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -373,22 +481,22 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.11356700211763382
-        Y: 0.10592000186443329
+        X: -0.09512447565793991
+        Y: 0.7622238993644714
         Z: 2.2351800055275817e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5097969770431519
+      Pitch: 0.294796884059906
       Target Frame: base_link
-      Yaw: 5.659949779510498
+      Yaw: 0.14176446199417114
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 920
+  Height: 891
   Help:
     collapsed: false
   Hide Left Dock: false
@@ -397,7 +505,7 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000002a20000033efc0200000007fb000000100044006900730070006c006100790073010000003d000001b0000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006701000001f3000001880000017d00ffffff000004900000033e00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000001000000000000037700000321fc0200000007fb000000100044006900730070006c006100790073010000003d00000193000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006701000001d6000001880000017d00ffffff000003bb0000032100000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1848

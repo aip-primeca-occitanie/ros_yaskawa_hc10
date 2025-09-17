@@ -40,13 +40,15 @@
                 " />
   -->
 
+  <arg name="left_robot" default="true" />
   <arg name="load_robot_description" default="true" />
   <!-- load URDF, SRDF and joint_limits configuration -->
-  <group unless="$(arg planning_context_already_loaded)">
+  <!-- <group unless="$(arg planning_context_already_loaded)"> -->
     <include file="$(find motoman_hc10_moveit_config)/launch/planning_context.launch">
       <arg name="load_robot_description" value="$(arg load_robot_description)" />
+      <arg name="left_robot" value="$(arg left_robot)" />
     </include>
-  </group>
+  <!-- </group> -->
 
   <!-- Planning Functionality -->
   <include ns="move_group" file="$(find motoman_hc10_moveit_config)/launch/planning_pipeline.launch.xml">
