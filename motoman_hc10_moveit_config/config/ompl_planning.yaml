@@ -153,7 +153,7 @@ DN2P1:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints($(arg robot_prefix)joint_1_s,$(arg robot_prefix)joint_2_l)
+  projection_evaluator: joints(joint_1_s,joint_2_l)
   longest_valid_segment_fraction: 0.005
 hand_group:
   planner_configs:
@@ -207,7 +207,7 @@ DN2P4:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints($(arg robot_prefix)joint_1_s,$(arg robot_prefix)joint_2_l)
+  projection_evaluator: joints(joint_1_s,joint_2_l)
   longest_valid_segment_fraction: 0.005
 DN3P1:
   planner_configs:
@@ -235,7 +235,7 @@ DN3P1:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints($(arg robot_prefix)joint_1_s,$(arg robot_prefix)joint_2_l)
+  projection_evaluator: joints(joint_1_s,joint_2_l)
   longest_valid_segment_fraction: 0.005
 DN3P4:
   planner_configs:
@@ -263,7 +263,7 @@ DN3P4:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints($(arg robot_prefix)joint_1_s,$(arg robot_prefix)joint_2_l)
+  projection_evaluator: joints(joint_1_s,joint_2_l)
   longest_valid_segment_fraction: 0.005
 DP1N2:
   planner_configs:
@@ -291,7 +291,7 @@ DP1N2:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints($(arg robot_prefix)joint_1_s,$(arg robot_prefix)joint_2_l)
+  projection_evaluator: joints(joint_1_s,joint_2_l)
   longest_valid_segment_fraction: 0.005
 DP1N3:
   planner_configs:
@@ -319,7 +319,7 @@ DP1N3:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints($(arg robot_prefix)joint_1_s,$(arg robot_prefix)joint_2_l)
+  projection_evaluator: joints(joint_1_s,joint_2_l)
   longest_valid_segment_fraction: 0.005
 DP4N2:
   planner_configs:
@@ -347,7 +347,7 @@ DP4N2:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints($(arg robot_prefix)joint_1_s,$(arg robot_prefix)joint_2_l)
+  projection_evaluator: joints(joint_1_s,joint_2_l)
   longest_valid_segment_fraction: 0.005
 DP4N3:
   planner_configs:
@@ -375,5 +375,5 @@ DP4N3:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints($(arg robot_prefix)oint_1_s,$(arg robot_prefix)joint_2_l)
+  projection_evaluator: joints(oint_1_s,joint_2_l)
   longest_valid_segment_fraction: 0.005

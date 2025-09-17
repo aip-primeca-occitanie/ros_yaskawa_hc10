@@ -1,6 +1,16 @@
 controller_list:
   - name: ""
-    action_ns: joint_trajectory_action
+    action_ns: yaskawa_LEFT/joint_trajectory_action
+    type: FollowJointTrajectory
+    joints:
+      - joint_1_s
+      - joint_2_l
+      - joint_3_u
+      - joint_4_r
+      - joint_5_b
+      - joint_6_t
+  - name: ""
+    action_ns: yaskawa_RIGHT/joint_trajectory_action
     type: FollowJointTrajectory
     joints:
       - joint_1_s

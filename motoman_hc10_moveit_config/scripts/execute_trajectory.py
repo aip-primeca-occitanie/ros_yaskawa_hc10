@@ -26,7 +26,14 @@ class TrajectoryExecutor():
                                                     moveit_msgs.msg.DisplayTrajectory,
                                                     queue_size=20)
         
-        self.joint_names = ["yaska1_joint_1_s","yaska1_joint_2_l","yaska1_joint_3_u","yaska1_joint_4_r","yaska1_joint_5_b","yaska1_joint_6_t"]
+        self.joint_names = [
+            "joint_1_s",
+            "joint_2_l",
+            "joint_3_u",
+            "joint_4_r",
+            "joint_5_b",
+            "joint_6_t"
+        ]
 
     def callback(self, data):
         """Update the current joint position."""
@@ -62,7 +69,8 @@ class TrajectoryExecutor():
         """Read a trajectory file and execute it."""
 
         if filename is None:
-            filename = '../trajectories/trajectory.csv'
+            # TODO use user input and absolute file path
+            filename = '/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/trajectories/trajectory.csv'
 
         trajectory = self.read_trajectory(filename)
 
@@ -92,25 +100,23 @@ class TrajectoryExecutor():
 
         # publish trajectory to execute the movement
         self.pub.publish(trajectory)
-
         print (trajectory)
 
+    # def plan_and_execute(self, filename: str = None):
+    #     """NOT TESTED! Planning and executing with set_joint_value_target."""
+    #     if filename is None:
+    #         filename = '/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/trajectories/trajectory.csv'
 
-    def plan_and_execute(self, filename: str = None):
-        """NOT TESTED! Planning and executing with set_joint_value_target."""
-        if filename is None:
-            filename = '../trajectories/trajectory.csv'
-
-        trajectory = self.read_trajectory(filename)
-        for n in range(len(trajectory)):
-            if not rospy.is_shutdown():
-                group.set_joint_value_target(trajectory[n])
-                print("New target has been set")
-                #plan2 = group.plan()
-                print("Plannig done, now executing \n")
-                group.go(wait=True) #Blocking call, same as "group.move()" for roscpp
-                group.stop()
-        moveit_commander.roscpp_shutdown()
+    #     trajectory = self.read_trajectory(filename)
+    #     for n in range(len(trajectory)):
+    #         if not rospy.is_shutdown():
+    #             self.group.set_joint_value_target(trajectory[n])
+    #             print("New target has been set")
+    #             #plan2 = group.plan()
+    #             print("Plannig done, now executing \n")
+    #             self.group.go(wait=True) #Blocking call, same as "group.move()" for roscpp
+    #             self.group.stop()
+    #     moveit_commander.roscpp_shutdown()
 
 
 if __name__ == "__main__":

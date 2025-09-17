@@ -16,4 +16,4 @@ controller_list:
     default: True
     joints:
       - end_effector_adaptater_mors2
-      - end_effector_mors1
+      - end_effector_adaptater_mors1

@@ -9,7 +9,7 @@ catkin_package(
   CATKIN_DEPENDS rospy
 )
 
-catkin_install_python(PROGRAMS scripts/add_interferences.py
+catkin_install_python(PROGRAMS scripts/add_interferences.py scripts/execute_trajectory.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

@@ -11,9 +11,9 @@
   <!-- Load universal robot description format (URDF) -->
   <group if="$(arg load_robot_description)">
     <param if="$(arg left_robot)" name="$(arg robot_description)"
-      command="xacro --inorder '$(find motoman_hc10_moveit_config)/urdf/hc10_with_env_LEFT.xacro'" />
+      command="xacro --inorder '$(find motoman_hc10_moveit_config)/urdf/left/hc10_with_env.xacro'" />
     <param unless="$(arg left_robot)" name="$(arg robot_description)"
-      command="xacro --inorder '$(find motoman_hc10_moveit_config)/urdf/hc10_with_env_RIGHT.xacro'" />
+      command="xacro --inorder '$(find motoman_hc10_moveit_config)/urdf/right/hc10_with_env.xacro'" />
   </group>
 
   <!-- The semantic description that corresponds to the URDF -->

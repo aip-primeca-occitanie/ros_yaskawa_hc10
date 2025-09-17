@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Wether we work with the left or right robot (when entering the room)  -->
+  <!-- Left robot is a HC10DT -->
+  <!-- Right robot is a HC10 -->
+  <!-- This influences the URDF and SRDF files -->
+  <arg name="left_robot" default="True" />
+
+  <arg if="$(arg left_robot)" name="robot_namespace" value="yaskawa_LEFT" />
+  <arg unless="$(arg left_robot)" name="robot_namespace" value="yaskawa_RIGHT" />
+
+  <group ns="$(arg robot_namespace)">
+
+  <node pkg="motoman_hc10_moveit_config"
+        type="execute_trajectory.py"
+        name="execute_trajectory"
+        output="screen"/>
+
+  </group>
+
+</launch>

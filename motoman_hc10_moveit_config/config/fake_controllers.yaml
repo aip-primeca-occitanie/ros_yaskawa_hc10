@@ -2,17 +2,17 @@ controller_list:
   - name: fake_DN2P1_controller
     type: $(arg fake_execution_type)
     joints:
-      - $(arg robot_prefix)joint_1_s
-      - $(arg robot_prefix)joint_2_l
-      - $(arg robot_prefix)joint_3_u
-      - $(arg robot_prefix)joint_4_r
-      - $(arg robot_prefix)joint_5_b
-      - $(arg robot_prefix)joint_6_t
+      - joint_1_s
+      - joint_2_l
+      - joint_3_u
+      - joint_4_r
+      - joint_5_b
+      - joint_6_t
   - name: fake_hand_controller
     type: $(arg fake_execution_type)
     joints:
       - end_effector_adaptater_mors2
-      - end_effector_mors1
+      - end_effector_adaptater_mors1
 initial:  # Define initial robot poses per group
   - group: DN2P1
     pose: home
