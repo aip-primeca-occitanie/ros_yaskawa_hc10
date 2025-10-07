@@ -27,7 +27,7 @@
     </joint>
 
     <joint name="link_base" type="fixed">
-        <origin rpy="-1.57079 3.1415 0" xyz="0.171 0.2 0.181" />
+        <origin rpy="-1.57079 1.57079 0.0" xyz="0.171 0.2 0.181" />
         <parent link="table_link" />
         <child link="base_link" />
     </joint>
