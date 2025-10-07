@@ -56,6 +56,8 @@ class TrajectoryExecutor():
         with open(filename) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             line_count = 1
+            # Skip first line (header)
+            next(csv_reader, None)
             for row in csv_reader:
                 point = JointTrajectoryPoint()
                 point.positions = list(map(float,row))
