@@ -46,7 +46,7 @@ class TrajectoryExecutor():
                 return False
         return True
     
-    def read_trajectory(self, filename: str, Ts: float = 0.1) -> JointTrajectory:
+    def read_trajectory(self, filename: str, Ts: float = 0.05) -> JointTrajectory:
         """Read a trajectory file and return a JointTrajectory."""
         print("Reading trajectory : ", filename)
         # create a new trajectory
@@ -67,10 +67,6 @@ class TrajectoryExecutor():
 
     def execute_trajectory(self, filename: str = None):
         """Read a trajectory file and execute it."""
-
-        if filename is None:
-            # TODO use user input and absolute file path
-            filename = '/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/trajectories/trajectory.csv'
 
         trajectory = self.read_trajectory(filename)
 
@@ -123,8 +119,9 @@ if __name__ == "__main__":
 
     # parse command line arguments to get path file
     parser = argparse.ArgumentParser()
-    parser.add_argument("--filename")
+    parser.add_argument("filename")
     known_args, remaining_args = parser.parse_known_args()
 
     trajExecutor = TrajectoryExecutor(remaining_args)
+    print("path", known_args.filename)
     trajExecutor.execute_trajectory(filename=known_args.filename)

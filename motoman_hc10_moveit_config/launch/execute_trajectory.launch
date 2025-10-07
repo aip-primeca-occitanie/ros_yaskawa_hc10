@@ -9,14 +9,17 @@
 
   <arg if="$(arg left_robot)" name="robot_namespace" value="yaskawa_LEFT" />
   <arg unless="$(arg left_robot)" name="robot_namespace" value="yaskawa_RIGHT" />
+  <arg name="filename" default="/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/trajectories/trajectory.csv" />
 
   <group ns="$(arg robot_namespace)">
 
   <node pkg="motoman_hc10_moveit_config"
         type="execute_trajectory.py"
         name="execute_trajectory"
-        output="screen"/>
+        output="screen"
+        args = "$(arg filename)"/>
 
   </group>
 
 </launch>
+
