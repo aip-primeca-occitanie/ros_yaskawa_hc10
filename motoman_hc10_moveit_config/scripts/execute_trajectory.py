@@ -46,7 +46,7 @@ class TrajectoryExecutor():
                 return False
         return True
     
-    def read_trajectory(self, filename: str, Ts: float = 0.05) -> JointTrajectory:
+    def read_trajectory(self, filename: str, Ts: float = 0.1) -> JointTrajectory: # 0.05 didn't work
         """Read a trajectory file and return a JointTrajectory."""
         print("Reading trajectory : ", filename)
         # create a new trajectory
