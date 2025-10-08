@@ -4,7 +4,8 @@ The folders in this repo :
 - motoman, motoman_drive, motoman_hc_10_support, motoman_msgs, motoman_resources are taken directly from the motoman official repo, branch noetic-devel : https://github.com/ros-industrial/motoman
 - motoman_hc_10_moveit_config (originally created with moveit setup assistant, and since modified) : contains all the custom files
 
-## How to use
+
+## How to use: with the real robot
 
 0. In every terminal, before doing any ROS command, you have to do:
 
@@ -34,11 +35,18 @@ The orange model is the Rviz vizualization.
 
 2. Enable the motors :
 
-In another terminal:
+In another terminal, for the left-side robot:
 
 ```sh
 source ~/catkin_ws/devel/setup.bash
 rosservice call /yaskawa_LEFT/robot_enable
+```
+
+Or for the right-side robot:
+
+```sh
+source ~/catkin_ws/devel/setup.bash
+rosservice call /yaskawa_RIGHT/robot_enable
 ```
 
 3. Execute a trajectory
@@ -48,12 +56,46 @@ You can plan and execute a trajectory directly from Rviz, or you can use a traje
 
 ```sh
 source ~/catkin_ws/devel/setup.bash
-roslaunch motoman_hc10_moveit_config execute_trajectory.launch
+roslaunch motoman_hc10_moveit_config execute_trajectory.launch left_robot:=false
+```
+
+```sh
+source ~/catkin_ws/devel/setup.bash
+roslaunch motoman_hc10_moveit_config execute_trajectory.launch left_robot:=true
 ```
 
 By default, the trajectory file read is `/home/yaska/catkin_ws/src/ros_yaskawa_hc10/motoman_hc10_moveit_config/trajectories/trajectory.csv`.
 You can change this file to yours, or specify another filepath like so :
 
 ```sh
-roslaunch motoman_hc10_moveit_config execute_trajectory.launch --filename /path/to/your/trajectory/file.csv
+roslaunch motoman_hc10_moveit_config execute_trajectory.launch left_robot:=false filename:=/path/to/your/trajectory/file.csv
 ```
+
+
+## How to use: in simulation
+
+0. In every terminal, before doing any ROS command, you have to do:
+
+```sh
+source ~/catkin_ws/devel/setup.bash
+```
+
+1. Run the simulation
+
+For the left-side Yaskawa (HC10DT, white covers):
+
+```sh
+source ~/catkin_ws/devel/setup.bash
+roslaunch motoman_hc10_moveit_config moveit_planning_execution.launch sim:=true left_robot:=true
+```
+
+For the right-side Yaskawa (HC10, blue covers):
+
+```sh
+source ~/catkin_ws/devel/setup.bash
+roslaunch motoman_hc10_moveit_config moveit_planning_execution.launch sim:=true left_robot:=false
+```
+
+2. Execute a trajectory
+
+This step is identical in simulation and on the real robot.
